@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-project(graph-laplace CXX)
+project(graph-laplacian CXX)
 
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED OFF)

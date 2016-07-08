@@ -1,0 +1,4 @@
+#ifndef GRAPH_LAPLACIAN_HPP_
+#define GRAPH_LAPLACIAN_HPP_
+
+#endif  // GRAPH_LAPLACIAN_HPP_

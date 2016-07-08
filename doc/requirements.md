@@ -1,4 +1,4 @@
-# Graph Laplace Requirements
+# Graph Laplacian Requirements
 ## User Need
 * The Laplacian matrix of a graph.
 https://en.wikipedia.org/wiki/Laplacian_matrix

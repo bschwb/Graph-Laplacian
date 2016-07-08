@@ -1,4 +1,4 @@
-# Graph Laplace Test Plan
+# Graph Laplacian Test Plan
 ## Feature Check
 * Dimension checks
 * Direct equality tests against handwritten result matrices for:

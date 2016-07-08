@@ -1,7 +1,7 @@
-#define BOOST_TEST_MODULE GraphLaplace
+#define BOOST_TEST_MODULE GraphLaplacian
 #include <boost/test/unit_test.hpp>
 
-#include <graph_laplace.hpp>
+#include <graph_laplacian.hpp>
 
 BOOST_AUTO_TEST_SUITE(TestGraphLaplace)
 

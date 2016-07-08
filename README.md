@@ -1,10 +1,10 @@
-# Graph-Laplace
-Calculate the laplace matrix for a BGL-Graph.
+# Graph-Laplacian
+Calculate the Laplacian matrix for a BGL-Graph.
 
 ## Build
 ```
-git clone git@github.com:BerndSchwarzenbacher/Graph-Laplace.git
-cd Graph-Laplace
+git clone git@github.com:BerndSchwarzenbacher/Graph-Laplacian.git
+cd Graph-Laplacian
 mkdir build
 cd build
 cmake ../

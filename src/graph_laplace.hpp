@@ -1,4 +1,0 @@
-#ifndef GRAPH_LAPLACE_HPP_
-#define GRAPH_LAPLACE_HPP_
-
-#endif  // GRAPH_LAPLACE_HPP_
