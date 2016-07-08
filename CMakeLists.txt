@@ -6,7 +6,5 @@ set(Boost_USE_MULTITHREADED OFF)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost COMPONENTS graph unit_test_framework REQUIRED)
 
-add_subdirectory(src)
-
 include(CTest)
 add_subdirectory(tests)

@@ -14,25 +14,40 @@ using namespace boost::numeric::ublas;
 
 #include <graph_laplacian.hpp>
 
-using Graph = adjacency_list<setS, vecS, undirectedS>;
+// An matrix equality check copied from: http://lists.boost.org/Archives/boost/2005/11/96235.php
+template<class E>
+bool equal(matrix<E> lhs, matrix<E> rhs)
+{
+  if (&lhs == &rhs) { return true; }
+  if (lhs.size1() != rhs.size1()) { return false; }
+  if (lhs.size2() != rhs.size2()) { return false; }
+  typename matrix<E>::iterator1 l(lhs.begin1());
+  typename matrix<E>::iterator1 r(rhs.begin1());
+  while (l != lhs.end1()) {
+    if (*l != *r) { return false; }
+    ++l;
+    ++r;
+  }
+  return true;
+}
 
 BOOST_AUTO_TEST_SUITE(TestGraphLaplacian)
 
-//// An empty graph produces an empty matrix
-//BOOST_AUTO_TEST_CASE(EmptyGraphTest)
-//{
-  //Graph g();
+// An empty graph produces an empty matrix
+BOOST_AUTO_TEST_CASE(EmptyGraphTest)
+{
+  Graph g;
 
-  //BOOST_CHECK_EQUAL(graph_laplacian(g), matrix<int>(0, 0));
-//}
+  BOOST_CHECK(equal(graph_laplacian(g), matrix<int>(0, 0)));
+}
 
-//// A graph with n vertices and no edges produces an (n x n)-zero matrix
-//BOOST_AUTO_TEST_CASE(NoEdgesTest)
-//{
-  //Graph g(5);
+// A graph with n vertices and no edges produces an (n x n)-zero matrix
+BOOST_AUTO_TEST_CASE(NoEdgesTest)
+{
+  Graph g(5);
 
-  //BOOST_CHECK_EQUAL(graph_laplacian(g), zero_matrix<int>(5, 5));
-//}
+  BOOST_CHECK(equal(graph_laplacian(g), matrix<int>(5, 5, 0)));
+}
 
 //// A graph with two vertices and an edge connecting them produces the following Laplacian matrix:
 ////  1 -1
@@ -47,7 +62,7 @@ BOOST_AUTO_TEST_SUITE(TestGraphLaplacian)
   //expected_mat <<=  1, -1,
                    //-1,  1;
 
-  //BOOST_CHECK_EQUAL(graph_laplacian(g), expected_mat);
+  //BOOST_CHECK(equal(graph_laplacian(g), expected_mat));
 //}
 
 //// A free tree on 3 vertices (vertex 1 is the center vertex) produces following Laplacian matrix:
@@ -65,7 +80,7 @@ BOOST_AUTO_TEST_SUITE(TestGraphLaplacian)
                    //-1,  2, -1,
                     //0, -1,  1;
 
-  //BOOST_CHECK_EQUAL(graph_laplacian(g), expected_mat);
+  //BOOST_CHECK(equal(graph_laplacian(g), expected_mat));
 //}
 
 //// A free tree on 4 vertices (vertices 1, 2 are the middle vertices) produces following
@@ -86,7 +101,7 @@ BOOST_AUTO_TEST_SUITE(TestGraphLaplacian)
                     //0, -1,  2, -1,
                     //0,  0, -1,  1;
 
-  //BOOST_CHECK_EQUAL(graph_laplacian(g), expected_mat);
+  //BOOST_CHECK(equal(graph_laplacian(g), expected_mat));
 //}
 
 //// A graph forming a square with 4 vertices produces follwoing Laplacian matrix:
@@ -106,7 +121,7 @@ BOOST_AUTO_TEST_SUITE(TestGraphLaplacian)
                     //0, -1,  2, -1,
                    //-1,  0, -1,  2;
 
-  //BOOST_CHECK_EQUAL(graph_laplacian(g), expected_mat);
+  //BOOST_CHECK(equal(graph_laplacian(g), expected_mat));
 //}
 
 BOOST_AUTO_TEST_SUITE_END()  // TestGraphLaplacian

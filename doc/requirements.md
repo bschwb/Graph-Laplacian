@@ -55,5 +55,5 @@ int main()
 
 using Graph = boost::adjacency_list<boost::setS, boost::vecS, boost::undirectedS>;
 
-boost::numeric:ublas::matrix<int> graph_laplacian(Graph g);
+boost::numeric::ublas::matrix<int> graph_laplacian(Graph g);
 ```
