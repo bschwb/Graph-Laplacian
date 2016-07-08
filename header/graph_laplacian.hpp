@@ -1,27 +1,34 @@
 #ifndef GRAPH_LAPLACIAN_HPP_
 #define GRAPH_LAPLACIAN_HPP_
 
+#include <type_traits>
 #include <tuple>
 
-#include <boost/graph/adjacency_list.hpp>
+#include <boost/concept_check.hpp>
+#include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
 
-using Graph = boost::adjacency_list<boost::setS, boost::vecS, boost::undirectedS>;
 using Matrix = boost::numeric::ublas::matrix<int>;
 
-Matrix graph_laplacian(const Graph& g)
+template <typename VertexListGraph>
+Matrix graph_laplacian(const VertexListGraph& g)
 {
   using namespace boost;
+
+  BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<VertexListGraph> ));
+  using GraphTraits = graph_traits<VertexListGraph>;
+  static_assert(is_undirected_graph<VertexListGraph>::value);
+
   const auto nv = num_vertices(g);
   Matrix mat(nv, nv, 0);
 
   auto index = get(vertex_index, g);
 
-  using vertex_iter = graph_traits<Graph>::vertex_iterator;
+  using vertex_iter = typename GraphTraits::vertex_iterator;
   vertex_iter vi, vi_end;
 
-  using adj_iter = graph_traits<Graph>::adjacency_iterator;
+  using adj_iter = typename GraphTraits::adjacency_iterator;
   adj_iter ai, ai_end;
 
   for (std::tie(vi, vi_end) = vertices(g); vi != vi_end; ++vi) {

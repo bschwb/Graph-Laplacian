@@ -12,6 +12,7 @@
 
 #include <graph_laplacian.hpp>
 
+
 // An matrix equality check copied from: http://lists.boost.org/Archives/boost/2005/11/96235.php
 template<class E>
 bool equal(boost::numeric::ublas::matrix<E> lhs, boost::numeric::ublas::matrix<E> rhs)
@@ -28,6 +29,8 @@ bool equal(boost::numeric::ublas::matrix<E> lhs, boost::numeric::ublas::matrix<E
   }
   return true;
 }
+
+using Graph = boost::adjacency_list<boost::setS, boost::vecS, boost::undirectedS>;
 
 BOOST_AUTO_TEST_SUITE(TestGraphLaplacian)
 
