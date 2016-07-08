@@ -8,7 +8,7 @@ https://en.wikipedia.org/wiki/Laplacian_matrix
 
 ### Minimal scope:
 * Take a fully specified graph and return a fully specified matrix
-    - Input: BGL adjacency_list graph: `adjacency_list<vecS, vecS, undirectedS>`
+    - Input: BGL adjacency_list graph: `adjacency_list<setS, vecS, undirectedS>`
     - Output: uBlas dense matrix
 
 ## Feature Enhancements
@@ -30,7 +30,7 @@ using namespace boost;
 
 int main()
 {
-  using Graph = adjacency_list<vecS, vecS, undirectedS>;
+  using Graph = adjacency_list<setS, vecS, undirectedS>;
 
   enum { A, B, C, D, E, N };
   const size_t num_vertices = N;
@@ -53,7 +53,7 @@ int main()
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
 
-using Graph = boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS>;
+using Graph = boost::adjacency_list<boost::setS, boost::vecS, boost::undirectedS>;
 
 boost::numeric:ublas::matrix<int> graph_laplacian(Graph g);
 ```
