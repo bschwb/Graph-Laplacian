@@ -4,7 +4,7 @@
 https://en.wikipedia.org/wiki/Laplacian_matrix
 
 ## Feature
-* A function which returns the Laplacian matrix of a simple graph.
+- [x] A function which returns the Laplacian matrix of a simple graph.
 
 ### Minimal scope:
 * Take a fully specified graph and return a fully specified matrix
@@ -12,8 +12,8 @@ https://en.wikipedia.org/wiki/Laplacian_matrix
     - Output: uBlas dense matrix
 
 ## Feature Enhancements
-* Generic input graph interface
-* Concept checking
+- [x] Generic input graph interface
+- [x] Concept checking
 * Different kind of Laplacian matrices
   - Weighted graph
 * Generic output matrix interface

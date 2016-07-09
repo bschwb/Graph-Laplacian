@@ -17,8 +17,10 @@ Matrix graph_laplacian(const VertexListGraph& g)
   using namespace boost;
 
   BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<VertexListGraph> ));
-  using GraphTraits = graph_traits<VertexListGraph>;
   static_assert(is_undirected_graph<VertexListGraph>::value);
+  static_assert(boost::mpl::not_<is_multigraph<VertexListGraph>>::value);
+
+  using GraphTraits = graph_traits<VertexListGraph>;
 
   const auto nv = num_vertices(g);
   Matrix mat(nv, nv, 0);
