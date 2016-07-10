@@ -4,6 +4,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 
 #include <boost/numeric/ublas/assignment.hpp>
@@ -31,6 +32,7 @@ bool equal(boost::numeric::ublas::matrix<E> lhs, boost::numeric::ublas::matrix<E
 }
 
 using Graph = boost::adjacency_list<boost::setS, boost::vecS, boost::undirectedS>;
+using Matrix = boost::numeric::ublas::matrix<int>;
 
 BOOST_AUTO_TEST_SUITE(TestGraphLaplacian)
 
@@ -39,7 +41,7 @@ BOOST_AUTO_TEST_CASE(EmptyGraphTest)
 {
   Graph g;
 
-  BOOST_CHECK(equal(graph_laplacian(g), boost::numeric::ublas::matrix<int>(0, 0)));
+  BOOST_CHECK(equal(graph_laplacian(g), Matrix(0, 0)));
 }
 
 // A graph with n vertices and no edges produces an (n x n)-zero matrix
@@ -47,7 +49,7 @@ BOOST_AUTO_TEST_CASE(NoEdgesTest)
 {
   Graph g(5);
 
-  BOOST_CHECK(equal(graph_laplacian(g), boost::numeric::ublas::matrix<int>(5, 5, 0)));
+  BOOST_CHECK(equal(graph_laplacian(g), Matrix(5, 5, 0)));
 }
 
 // A graph with two vertices and an edge connecting them produces the following Laplacian matrix:
@@ -59,7 +61,7 @@ BOOST_AUTO_TEST_CASE(TwoVerticesOneEdgeGraphTest)
   std::vector<Edge> edges { Edge(0, 1) };
   Graph g(edges.begin(), edges.end(), 2);
 
-  boost::numeric::ublas::matrix<int> expected_mat(2, 2);
+  Matrix expected_mat(2, 2);
   expected_mat <<=  1, -1,
                    -1,  1;
 
@@ -76,7 +78,7 @@ BOOST_AUTO_TEST_CASE(ThreeVerticesFreeTreeTest)
   std::vector<Edge> edges { Edge(0, 1), Edge(1, 2) };
   Graph g(edges.begin(), edges.end(), 3);
 
-  boost::numeric::ublas::matrix<int> expected_mat(3, 3);
+  Matrix expected_mat(3, 3);
   expected_mat <<=  1, -1,  0,
                    -1,  2, -1,
                     0, -1,  1;
@@ -96,7 +98,7 @@ BOOST_AUTO_TEST_CASE(FourVerticesFreeTreeTest)
   std::vector<Edge> edges { Edge(0, 1), Edge(1, 2), Edge(2, 3) };
   Graph g(edges.begin(), edges.end(), 4);
 
-  boost::numeric::ublas::matrix<int> expected_mat(4, 4);
+  Matrix expected_mat(4, 4);
   expected_mat <<=  1, -1,  0,  0,
                    -1,  2, -1,  0,
                     0, -1,  2, -1,
@@ -116,7 +118,7 @@ BOOST_AUTO_TEST_CASE(SquareTest)
   std::vector<Edge> edges { Edge(0, 1), Edge(1, 2), Edge(2, 3), Edge(3, 0) };
   Graph g(edges.begin(), edges.end(), 4);
 
-  boost::numeric::ublas::matrix<int> expected_mat(4, 4);
+  Matrix expected_mat(4, 4);
   expected_mat <<=  2, -1,  0, -1,
                    -1,  2, -1,  0,
                     0, -1,  2, -1,

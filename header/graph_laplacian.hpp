@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <tuple>
 
+#include <boost/mpl/not.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/graph_traits.hpp>
@@ -17,8 +18,12 @@ Matrix graph_laplacian(const VertexListGraph& g)
   using namespace boost;
 
   BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<VertexListGraph> ));
-  static_assert(is_undirected_graph<VertexListGraph>::value);
-  static_assert(boost::mpl::not_<is_multigraph<VertexListGraph>>::value);
+  static_assert(
+      is_undirected_graph<VertexListGraph>::value,
+      "Directed graphs are not supported.");
+  static_assert(
+      boost::mpl::not_<is_multigraph<VertexListGraph>>::value,
+      "Multigraphs are not supported.");
 
   using GraphTraits = graph_traits<VertexListGraph>;
 
@@ -36,7 +41,7 @@ Matrix graph_laplacian(const VertexListGraph& g)
   for (std::tie(vi, vi_end) = vertices(g); vi != vi_end; ++vi) {
     auto v = *vi;
     auto v_index = index[v];
-    mat(v_index, v_index) = degree(v, g);
+    mat(v_index, v_index) = static_cast<int>(degree(v, g));
     for (std::tie(ai, ai_end) = adjacent_vertices(v, g); ai != ai_end; ++ai) {
       mat(v_index, index[*ai]) = -1;
     }
